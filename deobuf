@@ -191,7 +191,7 @@ local function YTZH_fake_script() -- Join.LocalScript
 	local script = Instance.new('LocalScript', Join)
 
 	script.Parent.MouseButton1Click:Connect(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/Scp-096-Obfuscated/refs/heads/main/obuf"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/hogamg3/Scp-096/refs/heads/main/deobuf"))()
 	end)
 end
 coroutine.wrap(YTZH_fake_script)()
@@ -208,7 +208,7 @@ local function UXPUVQZ_fake_script() -- No.LocalScript
 	local script = Instance.new('LocalScript', No)
 
 	script.Parent.MouseButton1Click:Connect(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/Scp-096-Obfuscated/refs/heads/main/obuf"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/hogamg3/Scp-096/refs/heads/main/deobuf"))()
 	end)
 end
 coroutine.wrap(UXPUVQZ_fake_script)()
