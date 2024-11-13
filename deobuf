@@ -16,7 +16,7 @@ local CloseButton = Instance.new("TextButton")
 
 --Properties:
 
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Frame.Parent = ScreenGui
@@ -88,7 +88,7 @@ TextLabel_5.BorderSizePixel = 0
 TextLabel_5.Position = UDim2.new(0, 0, 0.60, 0)
 TextLabel_5.Size = UDim2.new(1, 0, 0.15, 0)
 TextLabel_5.Font = Enum.Font.Roboto
-TextLabel_5.Text = "by @aliwastaken54565 Owner Of Pocket Hub"
+TextLabel_5.Text = "This Invite Menu UI Was By @aliwastaken54565 Owner Of Pocket Hub"
 TextLabel_5.TextColor3 = Color3.fromRGB(255, 0, 255)
 TextLabel_5.TextScaled = true
 TextLabel_5.TextSize = 1
